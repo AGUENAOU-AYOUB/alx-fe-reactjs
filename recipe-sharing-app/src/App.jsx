@@ -5,7 +5,7 @@ import RecipeDetails from "./components/RecipeDetails";
 import EditRecipeForm from "./components/EditRecipeForm";
 import SearchBar from "./components/SearchBar";
 
-import FavoritesList from "./components/FavoriteList";
+import FavoritesList from "./components/FavoritesList";
 import RecommendationsList from "./components/RecommendationsList";
 
 // Add routes or place in sidebar/section
