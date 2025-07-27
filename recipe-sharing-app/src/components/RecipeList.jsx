@@ -3,16 +3,23 @@ import { Link } from "react-router-dom";
 import AddRecipeForm from "./AddRecipeForm";
 
 function RecipeList()  {
-  const recipes = useRecipeStore((state) => state.recipes);
+  
+  const filteredRecipes =  useRecipeStore(
+    (state) => state.filteredRecipes
+  );
+   if (filteredRecipes.length === 0) {
+    return <p>No recipes found.</p>;
+  }
   return (
     <div>
-    <AddRecipeForm/>
-      {recipes.map((recipe) => (
+        <AddRecipeForm/>
+      {filteredRecipes.map((recipe) => (
         <div key={recipe.id}>
           <h3>{recipe.title}</h3>
           <p>{recipe.description}</p>
         </div>
       ))}
+      
     </div>
   );
 };

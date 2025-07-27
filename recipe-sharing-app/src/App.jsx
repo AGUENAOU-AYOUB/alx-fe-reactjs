@@ -3,9 +3,12 @@ import AddRecipeForm from "./components/AddRecipeForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RecipeDetails from "./components/RecipeDetails";
 import EditRecipeForm from "./components/EditRecipeForm";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
+    <div>
+      <SearchBar/>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<RecipeList />} />
@@ -14,6 +17,7 @@ function App() {
         <Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
       </Routes>
     </BrowserRouter>
+    </div>
   );
 }
 export default App;
