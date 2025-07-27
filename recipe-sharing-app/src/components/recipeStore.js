@@ -1,62 +1,60 @@
+import { create } from "zustand";
+
 export const useRecipeStore = create((set, get) => ({
   recipes: [],
-  searchTerm: '',
-  filteredRecipes: [],
-
-  setSearchTerm: (term) => {
-    set({ searchTerm: term });
-    // Immediately update filteredRecipes after changing the term
-    const state = get();
-    const filtered = state.recipes.filter((recipe) =>
-      recipe.title.toLowerCase().includes(term.toLowerCase())
-    );
-    set({ filteredRecipes: filtered });
-  },
-
-  filterRecipes: () => {
-    const state = get();
-    const filtered = state.recipes.filter((recipe) =>
-      recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-    );
-    set({ filteredRecipes: filtered });
-  },
+  favorites: [],
+  recommendations: [],
 
   addRecipe: (newRecipe) => {
-    set((state) => {
-      const updatedRecipes = [...state.recipes, newRecipe];
-      const filtered = updatedRecipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      );
-      return {
-        recipes: updatedRecipes,
-        filteredRecipes: filtered,
-      };
-    });
+    const updatedRecipes = [...get().recipes, newRecipe];
+    return set({ recipes: updatedRecipes });
   },
 
   deleteRecipe: (id) =>
-    set((state) => {
-      const updatedRecipes = state.recipes.filter((recipe) => recipe.id !== id);
-      const filtered = updatedRecipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      );
-      return {
-        recipes: updatedRecipes,
-        filteredRecipes: filtered,
-      };
-    }),
+    set((state) => ({
+      recipes: state.recipes.filter((r) => r.id !== id),
+      favorites: state.favorites.filter((favId) => favId !== id),
+      recommendations: state.recommendations.filter((r) => r.id !== id),
+    })),
 
   updateRecipe: (updatedRecipe) =>
-    set((state) => {
-      const updatedRecipes = state.recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-      );
-      const filtered = updatedRecipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      );
-      return {
-        recipes: updatedRecipes,
-        filteredRecipes: filtered,
-      };
-    }),
+    set((state) => ({
+      recipes: state.recipes.map((r) =>
+        r.id === updatedRecipe.id ? updatedRecipe : r
+      ),
+    })),
+
+  searchTerm: "",
+  setSearchTerm: (term) => {
+    set({ searchTerm: term });
+    const filtered = get().recipes.filter((r) =>
+      r.title.toLowerCase().includes(term.toLowerCase())
+    );
+    set({ filteredRecipes: filtered });
+  },
+
+  filteredRecipes: [],
+
+  // 🔥 FAVORITES
+  addFavorite: (id) =>
+    set((state) =>
+      state.favorites.includes(id)
+        ? {}
+        : { favorites: [...state.favorites, id] }
+    ),
+
+  removeFavorite: (id) =>
+    set((state) => ({
+      favorites: state.favorites.filter((favId) => favId !== id),
+    })),
+
+  // 🎯 RECOMMENDATIONS
+  generateRecommendations: () => {
+    const state = get();
+    const recommended = state.recipes.filter(
+      (recipe) =>
+        state.favorites.includes(recipe.id) && Math.random() > 0.4 // simple logic
+    );
+    set({ recommendations: recommended });
+  },
 }));
