@@ -1,4 +1,4 @@
-import fetchUserData from "../services/githubServices";
+import fetchUserData from "../services/githubService";
 import { useState, useEffect } from "react";
 function SearchBar() {
   const [username, setUsername] = useState("");
