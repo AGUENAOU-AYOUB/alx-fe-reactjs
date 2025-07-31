@@ -10,7 +10,8 @@ function SearchBar() {
     setUsername(e.target.value);
   };
 
-  const handleSearch = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setLoading(true);
     setError(null);
     setUserData(null);
@@ -19,24 +20,24 @@ function SearchBar() {
       setUserData(data);
     } catch (error) {
       setError(true);
+    } finally {
       setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
     <>
-      <div className="searchBar">
+      <form className="searchBar" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Search..."
           className="searchInput"
           onChange={handleChange}
         />
-        <button type="submit" onClick={handleSearch}>
+        <button type="submit" >
           Search
         </button>
-      </div>
+      </form>
       <div className="result">
         {loading && <p>Loading...</p>}
         {error && <p>Looks like we cant find the user</p>}
