@@ -8,7 +8,7 @@ function SearchBar() {
   const [error, setError] = useState(false);
   const [users, setUsers] = useState([]);
   const [location, setLocation] = useState("");
-  const [repo, setRepo] = useState("");
+  const [minRepos, setMinRepos] = useState("");
   const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(1);
   const hasMoreResult = users.length < totalCount;
@@ -19,7 +19,7 @@ function SearchBar() {
     setLocation(e.target.value);
   };
   const handleChangeRepo = (e) => {
-    setRepo(e.target.value);
+    setMinRepos(e.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -33,7 +33,7 @@ function SearchBar() {
       const data = await fetchUserData(
         username,
         location,
-        repo,
+        minRepos,
         1,
         ITEMS_PER_PAGE
       );
@@ -53,7 +53,7 @@ function SearchBar() {
       const { items } = await fetchUserData(
         username,
         location,
-        repo,
+        minRepos,
         nextPage,
         ITEMS_PER_PAGE
       );

@@ -2,44 +2,56 @@ import axios from "axios";
 
 const apiKey = import.meta.env.VITE_APP_GITHUB_API_KEY;
 
-async function fetchUserData(username, location, repo, page = 1, per_page = 5) {
-  const queryArray = [];
-  if (username) {
-    queryArray.push(username);
-  }
-  if (location) {
-    queryArray.push(`location:${location}`);
-  }
-  if (repo) {
-    queryArray.push(`repos:>=${repo}`);
-  }
-  if (queryArray.length === 0) {
-    return { items: [], total_cout: 0 };
-  }
-  const queryString = queryArray.join("+");
-  const searchResponse = await axios.get(
-    `https://api.github.com/search/users?q=${queryString}&page=${page}&per_page=${per_page}`,
-    {
-      headers: {
-        Authorization: `token ${apiKey}`,
-      },
+async function fetchUserData(username, location, minRepos, page = 1, per_page = 5) {
+  try {
+    const queryArray = [];
+    if (username) {
+      queryArray.push(username);
     }
-  );
-  const users = searchResponse.data.items;
-  const detailedUsersPromises = users.map(async (user) => {
-    const detailedResponse = await axios.get(user.url, {
-      headers: {
-        Authorization: `tokaen ${apiKey}`,
-      },
+    if (location) {
+      queryArray.push(`location:${location}`);
+    }
+    if (minRepos) {
+      queryArray.push(`repos:>=${minRepos}`);
+    }
+
+    if (queryArray.length === 0) {
+      return { items: [], total_count: 0 };
+    }
+
+    const queryString = queryArray.join("+");
+    const searchResponse = await axios.get(
+      `https://api.github.com/search/users?q=${queryString}&page=${page}&per_page=${per_page}`,
+      {
+        headers: {
+          Authorization: `token ${apiKey}`,
+        },
+      }
+    );
+
+    const users = searchResponse.data.items;
+    const detailedUsersPromises = users.map(async (user) => {
+      const detailedResponse = await axios.get(user.url, {
+        headers: {
+          Authorization: `token ${apiKey}`, // <-- Fixed typo here
+        },
+      });
+      return { ...user, ...detailedResponse.data };
     });
-    return{...user, ...detailedResponse.data};
-  });
-  const detailedUsers = await Promise.all(detailedUsersPromises)
-  return {
-    items: detailedUsers,
-    total_count: searchResponse.data.total_count,
-  };
-  
+
+    const detailedUsers = await Promise.all(detailedUsersPromises);
+
+    return {
+      items: detailedUsers,
+      total_count: searchResponse.data.total_count,
+    };
+
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    // You might want to handle different types of errors (e.g., 404, rate limit exceeded)
+    // and return a more specific error object or message.
+    return { items: [], total_count: 0, error: "Failed to fetch data." };
+  }
 }
 
 export default fetchUserData;
