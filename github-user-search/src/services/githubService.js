@@ -47,9 +47,6 @@ async function fetchUserData(username, location, minRepos, page = 1, per_page = 
     };
 
   } catch (error) {
-    console.error("Error fetching user data:", error);
-    // You might want to handle different types of errors (e.g., 404, rate limit exceeded)
-    // and return a more specific error object or message.
     return { items: [], total_count: 0, error: "Failed to fetch data." };
   }
 }

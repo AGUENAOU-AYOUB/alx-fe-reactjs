@@ -60,7 +60,7 @@ function SearchBar() {
       setUsers((prevUsers) => [...prevUsers, ...items]);
       setPage(nextPage);
     } catch (error) {
-      console.error("no more");
+      setError(true)
     } finally {
       setLoading(false);
     }
