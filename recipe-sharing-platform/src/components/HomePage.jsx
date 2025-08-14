@@ -1,24 +1,12 @@
 import { useState, useEffect } from "react";
 import FoodCard from "./foodCard";
+import data from "../data.json";
 function HomePage() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   useEffect(() => {
-    const fetchRecipes = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("./data.json");
-        const data = await response.json();
-        setRecipes(data);
-      } catch {
-        console.log("no recipes found");
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRecipes();
+     setRecipes(data);
   }, []);
 
   return (
