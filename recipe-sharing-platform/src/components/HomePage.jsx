@@ -16,7 +16,7 @@ function HomePage() {
           Hello There!
         </div>
         <input
-          className="w-[70%] h-12 bg-white m-auto rounded-[22px] px-4 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.25)] font-regular  text-gray-500 md:h-[5vh] "
+          className="w-[70%] h-12 bg-white m-auto rounded-[22px] px-4 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.25)] font-regular  text-gray-500 md:h-[5vh] hover:shadow-sm "
           placeholder="Search For Reciepes"
         />
       </div>
