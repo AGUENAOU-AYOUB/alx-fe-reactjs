@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import FoodCard from "./foodCard";
+import RecipeDetail from "./RecipeDetail";
+import { Link } from "react-router-dom";
 import data from "../data.json";
 function HomePage() {
   const [recipes, setRecipes] = useState([]);
@@ -24,7 +25,7 @@ function HomePage() {
         {loading && <p>loading...</p>}
         {error && <p>error</p>}
         {recipes.map((recipe) => (
-         <div className="group w-[90%] sm:w-[220px] md:w-[280px] lg:w-[320px] bg-[#1B4332] rounded-2xl overflow-hidden shadow transition-all duration-500 ease-in-out transform-gpu hover:-translate-y-4 hover:shadow-lg mx-auto ">
+         <div key={recipe.id} className="group w-[90%] sm:w-[220px] md:w-[280px] lg:w-[320px] bg-[#1B4332] rounded-2xl overflow-hidden shadow transition-all duration-500 ease-in-out transform-gpu hover:-translate-y-4 hover:shadow-lg mx-auto ">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={recipe.image}
@@ -32,7 +33,7 @@ function HomePage() {
           className="w-full h-full object-cover object-center transition-transform duration-500 ease-in-out transform-gpu group-hover:scale-110"
         />
       </div>
-      <h3 className="p-3 text-white text-lg font-poppins ">{recipe.title}</h3>
+      <h3 className="p-3 text-white text-lg font-poppins "><Link to={`recipe/${recipe.id}`} className="text-white">{recipe.title}</Link></h3>
       <p className="p-3 text-white text-[10px] font-poppins">{recipe.summary}</p>
     </div>
         ))}
