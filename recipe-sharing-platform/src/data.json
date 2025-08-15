@@ -6,9 +6,37 @@
     "image": "https://via.placeholder.com/150"
   },
   {
-    "id": 2,
-    "title": "Chicken Tikka Masala",
-    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/150"
-  }
+  "id": 2,
+  "title": "Chicken Tikka Masala",
+  "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
+  "image": "https://via.placeholder.com/150",
+  "ingredient": [
+    "500g boneless chicken",
+    "1 cup plain yogurt",
+    "2 tbsp tikka masala spice mix",
+    "1 onion, finely chopped",
+    "2 cloves garlic, minced",
+    "1 tbsp ginger paste",
+    "400g canned tomatoes",
+    "1/2 cup heavy cream",
+    "2 tbsp butter",
+    "Salt to taste",
+    "Fresh coriander for garnish"
+  ],
+  "instruction": [
+    "Marinate chicken with yogurt and tikka masala spice mix for at least 1 hour.",
+    "Grill or pan-fry chicken pieces until cooked through, then set aside.",
+    "In a pan, melt butter and sauté onions until golden.",
+    "Add garlic and ginger paste, cook for 1 minute.",
+    "Stir in canned tomatoes and cook until softened, then blend into a smooth sauce if desired.",
+    "Return sauce to the pan, add cream, and simmer gently.",
+    "Add cooked chicken pieces to the sauce and heat through.",
+    "Garnish with fresh coriander and serve with rice or naan.",
+    "Marinate chicken with yogurt and tikka masala spice mix for at least 1 hour.",
+    "Grill or pan-fry chicken pieces until cooked through, then set aside.",
+    "In a pan, melt butter and sauté onions until golden.",
+    "Add garlic and ginger paste, cook for 1 minute."
+  ]
+}
+
 ]
