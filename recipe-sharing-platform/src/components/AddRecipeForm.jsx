@@ -5,6 +5,7 @@ function AddRecipeForm() {
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
   const [error, setError] = useState(false);
+  const [valid, setValid] = useState(false)
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -24,6 +25,11 @@ function AddRecipeForm() {
        
       }, 3000);
       return;
+    }else{
+        setValid(true);
+        setTimeout(()=>{
+            setValid(false)
+        }, 3000)
     }
   };
 
@@ -61,6 +67,11 @@ function AddRecipeForm() {
         {error && (
           <div className="absolute  top-50 left-50 z-[1000] w-[30%] h-[48px] bg-red-900 flex items-center justify-center px-2 py-4 rounded-xl  font-poppins font-bold text-[16px]">
             Error
+          </div>
+        )}
+        {valid && (
+          <div className="absolute  top-50 left-50 z-[1000] w-[30%] h-[48px] bg-green-900 flex items-center justify-center px-2 py-4 rounded-xl  font-poppins font-bold text-[16px]">
+            Validate
           </div>
         )}
       </form>
