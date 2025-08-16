@@ -125,7 +125,7 @@ function AddRecipeForm() {
 
       <form
         onSubmit={handleSubmit}
-        className="relative w-full max-w-xl md:max-w-2xl bg-white rounded-xl border-2 border-[#b5c99a] p-4 md:p-8 grid gap-4"
+        className="relative w-full max-w-xl md:max-w-2xl bg-white rounded-xl border-2 border-[#b5c99a] p-4 md:p-8 grid gap-4 shadow-lg"
       >
    
         <div>
