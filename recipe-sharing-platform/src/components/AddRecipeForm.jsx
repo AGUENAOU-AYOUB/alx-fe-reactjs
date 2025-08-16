@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
+  const [steps, setSteps] = useState("");
   const [error, setError] = useState(false);
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -11,13 +11,13 @@ function AddRecipeForm() {
   const handleChangeIngredients = (e) => {
     setIngredients(e.target.value);
   };
-  const handleChangeInstructions = (e) => {
-    setInstructions(e.target.value);
+  const handleChangeSteps = (e) => {
+    setSteps(e.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (title === "" && instructions === "" && ingredients === "") {
+    if (title === "" && steps === "" && ingredients === "") {
       setError(true);
 
       setTimeout(()=>{setError(false);
@@ -46,9 +46,9 @@ function AddRecipeForm() {
           className="w-full h-full rounded-sm md:rounded-md lg:rounded-lg  px-2 py-3 md:px-4 md:py-3 bg-white border-[#b5c99a] border-2 text-[14px] text-black font-poppins font-normal md:text-[18px] placeholder-[#1b4332] placeholder:font-semibold row-start-2 row-end-3"
         />
         <textarea
-          onChange={handleChangeInstructions}
-          value={instructions}
-          placeholder="Instructions"
+          onChange={handleChangeSteps}
+          value={steps}
+          placeholder="steps"
           className="w-full h-full rounded-sm md:rounded-md lg:rounded-lg  px-2 py-3 md:px-4 md:py-3 bg-white border-[#b5c99a] border-2 text-[14px] text-black font-poppins font-normal md:text-[18px] placeholder-[#1b4332] placeholder:font-semibold row-start-3 row-end-4"
         />
         <button
