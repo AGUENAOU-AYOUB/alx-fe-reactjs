@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const schema = Yup.object({
-  username: Yup.string().trim().required("username is required"),
+  username: Yup.string().required("username is required"),
   email: Yup.string().email("Invalid email").required("Emailis required"),
   password: Yup.string()
     .min(8, "Min 8 characters")
