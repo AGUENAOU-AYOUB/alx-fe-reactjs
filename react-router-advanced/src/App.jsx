@@ -1,58 +1,50 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import ProtectedRoute from "./routes/ProtectedRoute";
 
-import Home from "./pages/Home";
-import Posts from "./pages/Posts";
-import Post from "./pages/Post";
+import Home from "./components/Home";
+import Posts from "./components/Posts";
+import Post from "./components/Post";
 import Profile from "./components/Profile";
-import ProfileDetails from "./pages/ProfileDetails";
-import ProfileSettings from "./pages/ProfileSettings";
-import Login from "./pages/Login";
-
-function Nav() {
-  const { isAuthenticated, login, logout } = useAuth();
-  return (
-    <header style={{ display: "flex", gap: 12, padding: 12, borderBottom: "1px solid #ddd" }}>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/posts">Posts</NavLink>
-      <NavLink to="/profile">Profile</NavLink>
-      <span style={{ marginLeft: "auto" }}>
-        {isAuthenticated ? (
-          <button onClick={logout}>Logout</button>
-        ) : (
-          <button onClick={() => login()}>Quick Login</button>
-        )}
-      </span>
-    </header>
-  );
-}
+import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./components/Login";
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Nav />
-        <main style={{ padding: 16 }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="posts" element={<Posts />} />
-            <Route path="posts/:postId" element={<Post />} /> {/* dynamic route */}
+    <BrowserRouter>
+      <header style={{ display: "flex", gap: 12, padding: 12, borderBottom: "1px solid #ddd" }}>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/posts">Posts</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
+        <span style={{ marginLeft: "auto" }}>
+          {isAuthenticated ? (
+            <button onClick={() => setIsAuthenticated(false)}>Logout</button>
+          ) : (
+            <button onClick={() => setIsAuthenticated(true)}>Quick Login</button>
+          )}
+        </span>
+      </header>
 
-            <Route path="login" element={<Login />} />
+      <main style={{ padding: 16 }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-            {/* Protected area */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="profile" element={<Profile />}>
-                <Route index element={<ProfileDetails />} />
-                <Route path="settings" element={<ProfileSettings />} />
-              </Route>
-            </Route>
+          {/* Dynamic routes */}
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:postId" element={<Post />} />
 
-            <Route path="*" element={<h2>Not Found</h2>} />
-          </Routes>
-        </main>
-      </BrowserRouter>
-    </AuthProvider>
+          <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
+
+          {/* Protected route usage */}
+          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+            {/* profile/* so nested routes inside Profile.jsx can resolve */}
+            <Route path="/profile/*" element={<Profile />} />
+          </Route>
+
+          <Route path="*" element={<h2>Not Found</h2>} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
