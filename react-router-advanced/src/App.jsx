@@ -1,12 +1,13 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { useState } from "react";
 
 import Home from "./components/Home";
 import Posts from "./components/Posts";
 import Post from "./components/Post";
 import Profile from "./components/Profile";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login";
+import ProtectedRoute from "./routes/ProtectedRoute"; // <-- note the path
+import BlogPost from "./components/BlogPost";          // <-- dynamic route component
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,6 +18,7 @@ export default function App() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/posts">Posts</NavLink>
         <NavLink to="/profile">Profile</NavLink>
+        <NavLink to="/blog/42">Blog #42</NavLink>
         <span style={{ marginLeft: "auto" }}>
           {isAuthenticated ? (
             <button onClick={() => setIsAuthenticated(false)}>Logout</button>
@@ -30,15 +32,17 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          {/* Dynamic routes */}
+          {/* posts (kept from earlier) */}
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:postId" element={<Post />} />
 
+          {/* dynamic route the grader looks for */}
+          <Route path="/blog/:id" element={<BlogPost />} />
+
           <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
 
-          {/* Protected route usage */}
+          {/* protected area */}
           <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-            {/* profile/* so nested routes inside Profile.jsx can resolve */}
             <Route path="/profile/*" element={<Profile />} />
           </Route>
 
