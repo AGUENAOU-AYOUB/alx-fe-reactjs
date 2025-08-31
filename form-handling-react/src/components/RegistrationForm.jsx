@@ -10,6 +10,11 @@ function RegistrationForm() {
     const { name, value } = e.target;
     setFormData(prev => ({...prev, [name]: value}));
   }
+  const username = formData.username;
+  const email = formData.email;
+  const password = formData.password;
+
+
 
   const handleSubmit = (e) => {
   e.preventDefault();
@@ -25,9 +30,9 @@ function RegistrationForm() {
 
   return (
     <form className="" onSubmit={handleSubmit}>
-        <input  name="username" value={formData.username} onChange={handleChange}/>
-        <input name="email" value={formData.email} onChange={handleChange}/>
-        <input name="password" value={formData.password} onChange={handleChange}/>
+        <input  name="username" value={username} onChange={handleChange}/>
+        <input name="email" value={email} onChange={handleChange}/>
+        <input name="password" value={password} onChange={handleChange}/>
         <button type="submit" >send</button>
     </form>
   );
