@@ -5,7 +5,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
 import Post from "./pages/Post";
-import Profile from "./pages/Profile";
+import Profile from "./components/Profile";
 import ProfileDetails from "./pages/ProfileDetails";
 import ProfileSettings from "./pages/ProfileSettings";
 import Login from "./pages/Login";
