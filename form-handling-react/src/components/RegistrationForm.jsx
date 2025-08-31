@@ -1,12 +1,8 @@
 import { useState } from "react";
 
-function RegistrationForm() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState({}); // <-- required by tests
+export default function RegistrationForm() {
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [errors, setErrors] = useState({}); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,61 +14,39 @@ function RegistrationForm() {
     const { username, email, password } = formData;
     const nextErrors = {};
 
-    if (!username || !username.trim()) nextErrors.username = "Username is required";
-
-    
-    if (!email) nextErrors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(email)) nextErrors.email = "Invalid email";
-
+ 
+    if (!username) nextErrors.username = "Username is required";
+    if (!email)    nextErrors.email    = "Email is required";
     if (!password) nextErrors.password = "Password is required";
-    else if (password.length < 8) nextErrors.password = "Password must be at least 8 characters";
 
     if (Object.keys(nextErrors).length) {
-      setErrors(nextErrors); // <-- required by tests
+      setErrors(nextErrors); 
       return;
     }
 
     setErrors({});
-    console.log(formData);
+    console.log("Controlled submit:", formData);
+    
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <input
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          placeholder="Username"
-        />
-        {errors.username && <p style={{ color: "crimson" }}>{errors.username}</p>}
+        <input name="username" value={formData.username} onChange={handleChange} placeholder="Username" />
+        {errors.username && <small style={{ color: "crimson" }}>{errors.username}</small>}
       </div>
 
       <div>
-        <input
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        {errors.email && <p style={{ color: "crimson" }}>{errors.email}</p>}
+        <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+        {errors.email && <small style={{ color: "crimson" }}>{errors.email}</small>}
       </div>
 
       <div>
-        <input
-          name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
-        {errors.password && <p style={{ color: "crimson" }}>{errors.password}</p>}
+        <input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Password" />
+        {errors.password && <small style={{ color: "crimson" }}>{errors.password}</small>}
       </div>
 
-      <button type="submit">send</button>
+      <button type="submit">Send</button>
     </form>
   );
 }
-
-export default RegistrationForm;
