@@ -11,7 +11,9 @@ export default function RegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password } = formData;
+    const  username = formData.username;
+    const email = formData.email;
+    const password  = formData.password;
     const nextErrors = {};
 
  
@@ -32,17 +34,17 @@ export default function RegistrationForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <input name="username" value={formData.username} onChange={handleChange} placeholder="Username" />
+        <input name="username" value={username} onChange={handleChange} placeholder="Username" />
         {errors.username && <small style={{ color: "crimson" }}>{errors.username}</small>}
       </div>
 
       <div>
-        <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+        <input name="email" value={email} onChange={handleChange} placeholder="Email" />
         {errors.email && <small style={{ color: "crimson" }}>{errors.email}</small>}
       </div>
 
       <div>
-        <input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Password" />
+        <input name="password" type="password" value={password} onChange={handleChange} placeholder="Password" />
         {errors.password && <small style={{ color: "crimson" }}>{errors.password}</small>}
       </div>
 
